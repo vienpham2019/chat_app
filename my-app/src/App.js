@@ -3,7 +3,7 @@ import Pusher from "pusher-js";
 
 let messages = [];
 export default function App() {
-  const [load, setLoad] = useState(" ");
+  const [load, setLoad] = useState([]);
   useEffect(() => {
     var pusher = new Pusher("391a91223a701823767a", {
       cluster: "us2",
@@ -12,9 +12,12 @@ export default function App() {
     var channel = pusher.subscribe("my-channel");
     channel.bind("my-event", function (data) {
       messages = [...messages, data];
-      setLoad(" ");
+      console.log(messages, data);
+      setLoad(messages);
     });
   }, []);
+
+  const joinRoom = () => {};
 
   return (
     <div>
