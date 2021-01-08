@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Pusher from "pusher-js";
+
+import Rooms from "./components/Rooms";
 
 let messages = [];
 export default function App() {
-  const [load, setLoad] = useState([]);
   useEffect(() => {
+    fetch("http://localhost:3000/rooms")
+      .then((res) => res.json)
+      .then((data) => console.log(data));
+
     var pusher = new Pusher("391a91223a701823767a", {
       cluster: "us2",
     });
@@ -13,19 +18,15 @@ export default function App() {
     channel.bind("my-event", function (data) {
       messages = [...messages, data];
       console.log(messages, data);
-      setLoad(messages);
     });
   }, []);
 
-  const joinRoom = () => {};
-
   return (
-    <div>
-      <ul>
-        {messages.map(({ message }, id) => (
-          <li key={id}>{message}</li>
-        ))}
-      </ul>
+    <div className="p-5">
+      <div className="row">
+        <Rooms />
+        <div class="col border">Flex item</div>
+      </div>
     </div>
   );
 }
