@@ -5,9 +5,11 @@ export default function Rooms() {
   return (
     <div className="col-md-4 border">
       <h2>Rooms</h2>
-      <ul>
-        {rooms.map((room, id) => (
-          <li id={id}>{room}</li>
+      <ul className="list-group my-2">
+        {Array.from(rooms).map(([room, _], id) => (
+          <li className="list-group-item" key={id} role="button">
+            {room}
+          </li>
         ))}
       </ul>
     </div>

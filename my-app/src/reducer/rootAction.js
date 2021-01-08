@@ -3,4 +3,9 @@ const A_set_rooms = (rooms) => ({
   values: { rooms },
 });
 
-export { A_set_rooms };
+const A_set_current_room = (current_room) => ({
+  type: "SET_CURRENT_ROOM",
+  values: { current_room },
+});
+
+export { A_set_rooms, A_set_current_room };
