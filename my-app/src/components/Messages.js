@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 export default function Messages() {
-  const dispatch = useDispatch();
   const { rooms, current_room_id } = useSelector((state) => state);
   const [message, setMessage] = useState("");
 

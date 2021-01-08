@@ -28,16 +28,26 @@ export default function App() {
           cluster: "us2",
         });
 
-        var channel = pusher.subscribe("my-channel");
+        let channel = pusher.subscribe("my-channel");
 
-        for (let room of data.rooms) {
-          channel.bind(`room_${room.id}`, function (_data) {
+        const bind_room = ({ id }) => {
+          channel.bind(`room_${id}`, function (_data) {
             let { message } = _data.messages;
-            console.log(room.id);
-            rooms.get(room.id).comments.push({ message });
+            rooms.get(id).comments.push({ message });
             dispatch(A_set_rooms(rooms));
           });
+        };
+
+        for (let room of data.rooms) {
+          bind_room(room);
         }
+
+        channel.bind("new_room", ({ room }) => {
+          let { id, comments, title } = room;
+          rooms.set(id, { comments, title });
+          dispatch(A_set_rooms(rooms));
+          bind_room(room);
+        });
       });
   }, []);
 
