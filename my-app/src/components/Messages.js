@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 export default function Messages() {
   const dispatch = useDispatch();
-  const { rooms, current_room } = useSelector((state) => state);
+  const { rooms, current_room_id } = useSelector((state) => state);
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
@@ -13,7 +13,7 @@ export default function Messages() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        room_id: 1,
+        room_id: current_room_id,
         message,
       }),
     };
@@ -25,10 +25,10 @@ export default function Messages() {
     <div className="col border" style={{ height: "90vh" }}>
       <div style={{ height: "85vh", overflowY: "auto" }}>
         <ul>
-          {current_room &&
+          {current_room_id &&
             rooms
-              .get(current_room)
-              .map(({ message }, id) => <li key={id}>{message} </li>)}
+              .get(current_room_id)
+              .comments.map(({ message }, id) => <li key={id}>{message} </li>)}
         </ul>
       </div>
 

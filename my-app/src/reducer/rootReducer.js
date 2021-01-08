@@ -10,7 +10,8 @@ export default function rootReducer(state = init_state, action) {
       return { ...state, ...action.values };
     case "SET_CURRENT_ROOM":
       return { ...state, ...action.values };
-
+    case "SET_CURRENT_ROOM_ID":
+      return { ...state, ...action.values };
     default:
       return state;
   }
